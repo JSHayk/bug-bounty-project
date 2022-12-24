@@ -14,3 +14,61 @@ RESPONSE {
   created_at: number
 }
 ```
+
+POST '/login'
+BODY {
+  email:string,
+  password:string
+}
+RESPONSE {
+  "token":string
+}
+
+
+POST '/sign-up'
+BODY {
+  email:string,
+  password:string
+  type:string
+}
+RESPONSE {
+  "token":string
+}
+
+POST '/add-project'
+BODY {
+  title:string,
+  description:string
+}
+RESPONSE {
+  id:int
+}
+
+POST '/upload-image'
+BODY {
+  ------------
+  ------------
+}
+RESPONSE {
+  ---------
+}
+
+GET '/get-projects'
+BODY {
+
+}
+RESPONSE {
+  projects:array
+}
+
+GET '/get-project'
+BODY {
+  id:int
+}
+RESPONSE {
+  project:dict
+}
+
+
+
+
