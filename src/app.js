@@ -2,7 +2,6 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import morgan from "morgan";
 // Mine
 import config from "./config/config.js";
 import store from "./store/index.js";
