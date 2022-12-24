@@ -14,7 +14,7 @@ RESPONSE {
   created_at: number
 }
 ```
-
+```
 POST '/login'
 BODY {
   email:string,
@@ -23,8 +23,9 @@ BODY {
 RESPONSE {
   "token":string
 }
+```
 
-
+```
 POST '/sign-up'
 BODY {
   email:string,
@@ -32,9 +33,11 @@ BODY {
   type:string
 }
 RESPONSE {
-  "token":string
+  
 }
+```
 
+```
 POST '/add-project'
 BODY {
   title:string,
@@ -43,7 +46,9 @@ BODY {
 RESPONSE {
   id:int
 }
+```
 
+```
 POST '/upload-image'
 BODY {
   ------------
@@ -52,7 +57,8 @@ BODY {
 RESPONSE {
   ---------
 }
-
+```
+```
 GET '/get-projects'
 BODY {
 
@@ -60,7 +66,9 @@ BODY {
 RESPONSE {
   projects:array
 }
+```
 
+```
 GET '/get-project'
 BODY {
   id:int
@@ -68,7 +76,7 @@ BODY {
 RESPONSE {
   project:dict
 }
-
+```
 
 
 
