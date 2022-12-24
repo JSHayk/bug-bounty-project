@@ -47,7 +47,6 @@ const checkLoginValidations = (req, res, next) => {
     return res.status(422).send({ message: INVALID_EMAIL });
   if (!validations.isPasswordValidated(password))
     return res.status(422).send({ message: REQUIRED_PASSWORD });
-  if (!type) return res.status(422).send({ message: REQUIRED_TYPE });
   next();
 };
 

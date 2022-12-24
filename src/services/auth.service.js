@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 // Mine
 import connect from "../db/connect.js";
 import tokenService from "./token.service.js";
+import userDto from "../dtos/user.dto.js";
+
 import {
   SUCCESS_REGISTER,
   SUCCESS_LOGIN,
@@ -13,7 +15,6 @@ import {
 
 const register = async (authData) => {
   const { email, password, type } = authData;
-  console.log(type, "type");
   if (!email || !password || !type) throw new Error("invalid arguments");
   const user = await getUserFromDbByEmail(email);
   if (user)
@@ -46,12 +47,13 @@ const login = async (authData) => {
         message: INCORRECT_PASSWORD,
       };
     }
-    const generatedToken = tokenService.generateToken(authData);
+    const modifyedUser = userDto(user);
+    const generatedToken = tokenService.generateToken(modifyedUser);
 
     return {
       statusCode: 200,
       data: {
-        user,
+        user: modifyedUser,
         token: generatedToken,
       },
     };
