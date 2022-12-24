@@ -59,7 +59,7 @@ RESPONSE {
 }
 ```
 ```
-GET '/get-projects'
+GET '/projects'
 BODY {
 
 }
@@ -69,7 +69,7 @@ RESPONSE {
 ```
 
 ```
-GET '/get-project'
+GET '/project'
 BODY {
   id:int
 }
