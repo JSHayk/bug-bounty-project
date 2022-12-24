@@ -1,5 +1,6 @@
 CREATE DATABASE bug_bounty;
 USE bug_bounty;
+
 CREATE TABLE projects (
     id int AUTO_INCREMENT,
     organization VARCHAR(255),
@@ -17,6 +18,8 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     type ENUM("0","1","2") Default "0" NOT NULL,
+    reports int,
+    points int,
     PRIMARY KEY(id)
 );
 
