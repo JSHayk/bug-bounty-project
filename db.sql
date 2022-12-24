@@ -1,5 +1,7 @@
 CREATE DATABASE bug_bounty;
 USE bug_bounty;
+
+
 CREATE TABLE projects (
     id int AUTO_INCREMENT,
     organization VARCHAR(255),
