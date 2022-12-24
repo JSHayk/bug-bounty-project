@@ -12,8 +12,16 @@ router.post(
   "/register",
   checkEmptyBody,
   authMiddleware.checkRegisterBody,
-  authMiddleware.checkAuthValidations,
+  authMiddleware.checkRegisterValidations,
   authController.register
+);
+// Login
+router.post(
+  "/login",
+  checkEmptyBody,
+  authMiddleware.checkLoginBody,
+  authMiddleware.checkLoginValidations,
+  authController.login
 );
 
 export default router;

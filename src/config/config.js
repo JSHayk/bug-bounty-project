@@ -16,9 +16,10 @@ const config = {
   },
   tokenConfig: {
     token_secret: process.env.TOKEN_SECRET,
+    expires_time: process.env.EXPIRESS_TIME || "1h",
   },
   storageConfig: {
-    max_age: process.env.MAX_AGE || 30 * 24 * 60 * 60 * 1000,
+    max_age: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   },
 };

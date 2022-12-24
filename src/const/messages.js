@@ -2,7 +2,7 @@
 export const INVALID_EMAIL = "Invalid email!";
 export const INCORRECT_PASSWORD = "Incorrect password!";
 // Requires
-export const REQUIRED_TYPE = "Type must be!";
+export const REQUIRED_TYPE = "Type must be 1 or 2!";
 export const REQUIRED_PASSWORD =
   "Password must contain digits and numeric values!";
 // Success

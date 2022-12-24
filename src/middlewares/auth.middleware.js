@@ -21,18 +21,39 @@ const checkRegisterBody = (req, res, next) => {
   next();
 };
 
-const checkAuthValidations = (req, res, next) => {
+const checkLoginBody = (req, res, next) => {
+  const { isChecked, statusCode, message } = checkBody(req.body, [
+    "email",
+    "password",
+  ]);
+  if (!isChecked) {
+    return res.status(statusCode).send({ message });
+  }
+  next();
+};
+
+const checkRegisterValidations = (req, res, next) => {
   const { email, password, type } = req.body;
   if (!validations.isEmailValidated(email))
     return res.status(422).send({ message: INVALID_EMAIL });
   if (!validations.isPasswordValidated(password))
     return res.status(422).send({ message: REQUIRED_PASSWORD });
-  if (type == undefined)
-    return res.status(422).send({ message: REQUIRED_TYPE });
+  if (!type) return res.status(422).send({ message: REQUIRED_TYPE });
+  next();
+};
+const checkLoginValidations = (req, res, next) => {
+  const { email, password, type } = req.body;
+  if (!validations.isEmailValidated(email))
+    return res.status(422).send({ message: INVALID_EMAIL });
+  if (!validations.isPasswordValidated(password))
+    return res.status(422).send({ message: REQUIRED_PASSWORD });
+  if (!type) return res.status(422).send({ message: REQUIRED_TYPE });
   next();
 };
 
 export default {
   checkRegisterBody,
-  checkAuthValidations,
+  checkLoginBody,
+  checkRegisterValidations,
+  checkLoginValidations,
 };
