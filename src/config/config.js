@@ -18,7 +18,7 @@ const config = {
     token_secret: process.env.TOKEN_SECRET,
   },
   storageConfig: {
-    max_age: process.env.MAX_AGE,
+    max_age: process.env.MAX_AGE || 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   },
 };
