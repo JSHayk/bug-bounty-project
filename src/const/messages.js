@@ -8,9 +8,12 @@ export const REQUIRED_PASSWORD =
 // Success
 export const SUCCESS_REGISTER = "You've successfully registered!";
 export const SUCCESS_LOGIN = "You've successfully logined!";
+export const SUCCESS_ADDED = "You've successfully added!";
+
 // Found
 export const EXIST_EMAIL = "The email is already exist";
 // User
 export const NOT_FOUND_USER = "There is no user ";
 // Common
 export const EMPTY_BODY = "The request body is empty!";
+export const NOT_FOUND_PRODUCT = "There is nothing with this id";
