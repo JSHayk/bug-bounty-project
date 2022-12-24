@@ -1,4 +1,4 @@
-CREATE DATABASE bug-bounty;
+CREATE DATABASE bug_bounty;
 
 CREATE TABLE projects (
     id int AUTO_INCREMENT,
@@ -16,7 +16,7 @@ CREATE TABLE users (
     id int AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    type ENUM NOT NULL,
+    type ENUM(0, 1, 2) NOT NULL,
     PRIMARY KEY id
 );
 
