@@ -26,4 +26,3 @@ CREATE TABLE users (
     points int,
     PRIMARY KEY(id)
 );
-
