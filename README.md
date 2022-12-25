@@ -1,5 +1,16 @@
 ## Client
 
+## Project Setup
+```
+npm install
+```
+
+## Run Project
+```
+npm run start
+```
+
+## Dependencies
 ```
 @reduxjs/toolkit - Managing with redux toolkit,
 axios - Making requests with axios,
