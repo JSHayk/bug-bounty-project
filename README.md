@@ -1,3 +1,7 @@
+## Client
+
+## Server
+
 ## Project Setup
 ```
 npm install
@@ -7,3 +11,8 @@ npm install
 ```
 npm run start
 ```
+## Deploy Project
+```
+
+```
+
