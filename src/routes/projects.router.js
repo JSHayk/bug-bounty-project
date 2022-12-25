@@ -18,6 +18,8 @@ router.get(
   checkIdParam,
   projectsController.getProject
 );
+// Getting uploaded project
+router.get("/projects/:imageName", projectsController.getUploadedProject);
 // Adding project
 router.post(
   "/projects/:id",
@@ -27,9 +29,9 @@ router.post(
 );
 router.post(
   "/projects/upload/:organizatorId/:projectId",
-  checkUploadFile,
   upload.single("image"),
-  checkIdParam
+  checkUploadFile,
+  projectsController.uploadProject
 );
 // Editing project
 // router.put(

@@ -5,7 +5,6 @@ async function addToDb(addData, tableName) {
   try {
     if (!addData || typeof addData !== "object" || !tableName)
       throw new Error("invalid arguments");
-    console.log(addData, "addData");
     const keys = Object.keys(addData).join(", ");
     const values = Object.values(addData);
     const placeholders = Array(Object.keys(addData).length)

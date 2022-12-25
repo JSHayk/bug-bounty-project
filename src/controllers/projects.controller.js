@@ -21,11 +21,27 @@ const getProject = async (req, res) => {
   }
 };
 
+const getUploadedProject = async (req, res) => {
+  const { imageName } = req.params;
+  if (!imageName) throw new Error("invalid arguments");
+  try {
+    const { statusCode, data } = await projectsService.getUploadedProject(
+      imageName
+    );
+    if (statusCode !== 200) {
+      res.status(statusCode).send({ message: "bad" });
+    }
+    data?.readStream.pipe(res);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 const addProject = async (req, res) => {
   const { id } = req.params;
   try {
-    await projectsService.addProject(id, req.body);
-    res.status(200).send({ message: SUCCESS_ADDED });
+    const { statusCode, data } = await projectsService.addProject(id, req.body);
+    res.status(statusCode).send(data.project);
   } catch (err) {
     throw new Error(err.message);
   }
@@ -55,8 +71,11 @@ const deleteProject = async (req, res) => {
 };
 
 const uploadProject = async (req, res) => {
-  const { id } = req.params;
+  const { organizatorId } = req.params;
+  const { filename } = req.file;
   try {
+    await projectsService.uploadProject(organizatorId, filename);
+    res.status(200).send({ message: "Success uploaded" });
   } catch (err) {
     throw new Error(err.message);
   }
@@ -65,7 +84,9 @@ const uploadProject = async (req, res) => {
 export default {
   getAllProjects,
   getProject,
+  getUploadedProject,
   addProject,
   editProject,
   deleteProject,
+  uploadProject,
 };

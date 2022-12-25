@@ -1,9 +1,12 @@
+// Lib
+import fs from "fs";
 // Mine
 import connect from "../db/connect.js";
 // CONST
 import { NOT_FOUND_PRODUCT_RESPONSE } from "../const/responses.js";
 import { PROJECTS_TABLE } from "../const/names.js";
 import { SUCCESS_DELETED } from "../const/messages.js";
+import config from "../config/config.js";
 // DTO
 import projectDto from "../dtos/project.dto.js";
 // Helpers
@@ -13,6 +16,11 @@ import deleteFromDb from "../helpers/deleteFromDb.js";
 import editInDb from "../helpers/editInDb.js";
 import getFromDbWithCondition from "../helpers/getFromDbWithCondition.js";
 import getFromDb from "../helpers/getFromDb.js";
+import checkIsFileExist from "../helpers/checkIsFileExist.js";
+
+const {
+  uploadConfig: { projects_path },
+} = config;
 
 // Getting projects from DB
 async function getProjectsFromDb() {
@@ -42,6 +50,22 @@ const getProject = async (projectId, organizatorId) => {
   }
 };
 
+const getUploadedProject = async (imageName) => {
+  const imagePath = `${projects_path}/${imageName}`;
+  if (!checkIsFileExist(imagePath))
+    return {
+      statusCode: 404,
+      message: "There is no upload",
+    };
+  const readStream = fs.createReadStream(imagePath);
+  return {
+    statusCode: 200,
+    data: {
+      readStream,
+    },
+  };
+};
+
 const addProject = async (organizatorId, projectData) => {
   try {
     if (!organizatorId || !projectData) throw new Error("invalid arguments");
@@ -49,7 +73,19 @@ const addProject = async (organizatorId, projectData) => {
       ...projectData,
       organizator_id: organizatorId,
     });
-    addToDb(modifyedProject, PROJECTS_TABLE);
+    await addToDb(modifyedProject, PROJECTS_TABLE);
+    const [project] = await getFromDbWithCondition({
+      tableName: PROJECTS_TABLE,
+      need: "id",
+      condition: "organizator_id = ?",
+      setValues: [organizatorId],
+    });
+    return {
+      statusCode: 200,
+      data: {
+        project,
+      },
+    };
   } catch (err) {
     throw new Error(err.message);
   }
@@ -94,11 +130,13 @@ const deleteProject = async (projectId) => {
   }
 };
 
-const uploadProject = async (id) => {
+const uploadProject = async (organizatorId, filename) => {
   try {
-    if (!id) throw new Error("invalid arguments");
-
-    return;
+    if (!organizatorId || !filename) throw new Error("invalid arguments");
+    await connect.query(
+      "UPDATE projects SET image_url = ? WHERE organizator_id = ? ",
+      [filename, organizatorId]
+    );
   } catch (err) {
     throw new Error(err.message);
   }
@@ -114,7 +152,9 @@ function modifyProjects(projects) {
 export default {
   getProjectsFromDb,
   getProject,
+  getUploadedProject,
   addProject,
   editProject,
   deleteProject,
+  uploadProject,
 };
