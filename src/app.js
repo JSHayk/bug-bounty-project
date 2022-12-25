@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true })); // Allowing access for formData
 app.use(cookieParser()); // Saving token in cookies
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://bug-bounty-ui.vercel.app",
     credentials: true,
   })
 ); // Allowing access from client
