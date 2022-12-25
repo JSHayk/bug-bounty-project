@@ -1,15 +1,18 @@
 // Mine
 import connect from "../db/connect.js";
 
-async function addToDb(addData) {
+async function addToDb(addData, tableName) {
   try {
+    if (!addData || typeof addData !== "object" || !tableName)
+      throw new Error("invalid arguments");
+    console.log(addData, "addData");
     const keys = Object.keys(addData).join(", ");
     const values = Object.values(addData);
     const placeholders = Array(Object.keys(addData).length)
       .fill("?")
       .join(", ");
     await connect.query(
-      `INSERT INTO projects(${keys}) VALUES(${placeholders})`,
+      `INSERT INTO ${tableName}(${keys}) VALUES(${placeholders})`,
       [...values]
     );
   } catch (err) {

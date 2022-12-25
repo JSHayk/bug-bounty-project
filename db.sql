@@ -21,7 +21,7 @@ CREATE TABLE users (
     id int AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    type ENUM("0","1","2") Default "0" NOT NULL,
+    type ENUM("1","2","3") Default "1" NOT NULL,
     reports int,
     points int,
     PRIMARY KEY(id)

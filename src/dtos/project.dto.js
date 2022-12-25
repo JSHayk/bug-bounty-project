@@ -1,6 +1,13 @@
-function projectDto(projectData) {
+// Mine
+// Helpers
+import modifyData from "../helpers/modifyData.js";
+
+function withRewardObj(projectData) {
+  if (!projectData) throw new Error("invalid arguments");
   const { reward_from, reward_to } = projectData;
-  const filteredData = getProjectDtoWithoutRewards(Object.entries(projectData));
+  const filteredData = modifyData(Object.entries(projectData), (key) => {
+    return key !== "reward_from" || key !== "reward_to";
+  });
   return {
     ...Object.fromEntries(filteredData),
     reward: {
@@ -10,28 +17,16 @@ function projectDto(projectData) {
   };
 }
 
-function unzipProjectDto(projectData) {
+function withoutRewardObj(projectData) {
+  if (!projectData) throw new Error("invalid arguments");
   const { reward } = projectData;
-  const filteredData = getProjectDtoWithRewards(Object.entries(projectData));
+  const filteredData = modifyData(Object.entries(projectData), (key) => {
+    return key !== "reward";
+  });
   return {
     ...Object.fromEntries(filteredData),
     reward_from: reward.from,
     reward_to: reward.to,
   };
 }
-
-function getProjectDtoWithRewards(arr) {
-  return arr.filter((item) => {
-    const [key] = item;
-    return key !== "reward";
-  });
-}
-
-function getProjectDtoWithoutRewards(arr) {
-  return arr.filter((item) => {
-    const [key] = item;
-    return key !== "reward_from" || key !== "reward_to";
-  });
-}
-
-export default { projectDto, unzipProjectDto };
+export default { withRewardObj, withoutRewardObj };

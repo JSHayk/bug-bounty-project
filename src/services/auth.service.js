@@ -1,10 +1,6 @@
 // Lib
 import bcrypt from "bcrypt";
 // Mine
-import connect from "../db/connect.js";
-import tokenService from "./token.service.js";
-import userDto from "../dtos/user.dto.js";
-
 import {
   SUCCESS_REGISTER,
   SUCCESS_LOGIN,
@@ -12,18 +8,31 @@ import {
   EXIST_EMAIL,
   INCORRECT_PASSWORD,
 } from "../const/messages.js";
+import connect from "../db/connect.js";
+import tokenService from "./token.service.js";
+// DTO
+import userDto from "../dtos/user.dto.js";
+// CONST
+import { USERS_TABLE } from "../const/names.js";
+// Helpers
+import addToDb from "../helpers/addToDb.js";
+import getFromDbWithCondition from "../helpers/getFromDbWithCondition.js";
 
 const register = async (authData) => {
   const { email, password, type } = authData;
   if (!email || !password || !type) throw new Error("invalid arguments");
-  const user = await getUserFromDbByEmail(email);
+  const [user] = await getFromDbWithCondition({
+    tableName: USERS_TABLE,
+    condition: "email = ?",
+    setValues: [email],
+  });
   if (user)
     return {
       statusCode: 403,
       message: EXIST_EMAIL,
     };
   const hashedPassword = await bcrypt.hash(password, 10);
-  await addUser({ ...authData, password: hashedPassword });
+  await addToDb({ ...authData, password: hashedPassword }, "users");
   return {
     statusCode: 200,
     message: SUCCESS_REGISTER,
@@ -34,7 +43,11 @@ const login = async (authData) => {
   try {
     const { email, password } = authData;
     if (!email || !password) throw new Error("invalid arguments");
-    const user = await getUserFromDbByEmail(email);
+    const [user] = await getFromDbWithCondition({
+      tableName: USERS_TABLE,
+      condition: "email = ?",
+      setValues: [email],
+    });
     if (!user) {
       return {
         statusCode: 403,
@@ -61,30 +74,6 @@ const login = async (authData) => {
     throw new Error(err.message);
   }
 };
-
-// Helpers
-async function getUserFromDbByEmail(email) {
-  try {
-    const [users] = await connect.query(
-      "SELECT * FROM users WHERE email = ?",
-      email
-    );
-    return users[0];
-  } catch (err) {
-    throw new Error(err.message);
-  }
-}
-async function addUser(userData) {
-  try {
-    const { email, password, type } = userData;
-    await connect.query(
-      "INSERT INTO users(email, password, type) VALUES(?, ?, ?)",
-      [email, password, type]
-    );
-  } catch (err) {
-    throw new Error(err.message);
-  }
-}
 
 export default {
   register,

@@ -1,6 +1,9 @@
 // Lib
+import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
+
+const assets_path = path.resolve() + "/src/upload/assets";
 
 const config = {
   appConfig: {
@@ -21,6 +24,9 @@ const config = {
   storageConfig: {
     max_age: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
+  },
+  uploadConfig: {
+    projects_path: `${assets_path}/projects`,
   },
 };
 

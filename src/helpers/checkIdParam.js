@@ -1,10 +1,10 @@
-// Mine
-import validations from "../validations/index.js";
-
 function checkIdParam(req, res, next) {
   const { id } = req.params;
-  if (!id) {
-    return res.status(403).send({ message: "Invalid id!" });
+  // Object.keys(req.params).filter()
+  if (id && id.toLowerCase().includes("id")) {
+    if (!Number(id)) {
+      return res.status(403).send({ message: "Invalid id!" });
+    }
   }
   next();
 }

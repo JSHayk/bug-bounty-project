@@ -2,18 +2,42 @@
 import express from "express";
 // Mine
 import projectsController from "../controllers/projects.controller.js";
-import projectsService from "../services/projects.service.js";
+import $upload from "../upload/upload.js";
 // Helpers
 import checkEmptyBody from "../helpers/checkEmptyBody.js";
 import checkIdParam from "../helpers/checkIdParam.js";
+import checkUploadFile from "../helpers/checkUploadFile.js";
 
+const upload = $upload(1);
 const router = express();
 // Getting all projects
-router.get("/projects", projectsController.getProjects);
+router.get("/all-projects", projectsController.getAllProjects);
 // Getting special project
-router.get("/projects/:id", checkIdParam, projectsController.getProject);
+router.get(
+  "/projects/:organizatorId/:projectId",
+  checkIdParam,
+  projectsController.getProject
+);
 // Adding project
-router.post("/projects", checkEmptyBody, projectsController.addProject);
+router.post(
+  "/projects/:id",
+  checkIdParam,
+  checkEmptyBody,
+  projectsController.addProject
+);
+router.post(
+  "/projects/upload/:organizatorId/:projectId",
+  checkUploadFile,
+  upload.single("image"),
+  checkIdParam
+);
+// Editing project
+// router.put(
+//   "/projects/:id",
+//   checkIdParam,
+//   checkEmptyBody,
+//   projectsController.editProject
+// );
 // Deleting project
-router.delete("/projects/:id", projectsController.deleteProject);
+router.delete("/projects/:id", checkIdParam, projectsController.deleteProject);
 export default router;

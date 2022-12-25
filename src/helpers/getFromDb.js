@@ -1,13 +1,10 @@
-// Lib
+// Mine
 import connect from "../db/connect.js";
 
-async function getFromDb(data) {
+async function getFromDb(tableName) {
+  if (!tableName) throw new Error("invalid arguments");
   try {
-    const { need = "*", compareValue, setValue, dbName } = data;
-    const [arr] = await connect.query(
-      `SELECT ${need} FROM ${dbName} WHERE ${compareValue} = ?`,
-      [setValue]
-    );
+    const [arr] = await connect.query(`SELECT * FROM ${tableName}`);
     return arr;
   } catch (err) {
     throw new Error(err.message);

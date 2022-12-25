@@ -16,7 +16,8 @@ app.use(express.urlencoded({ extended: true })); // Allowing access for formData
 app.use(cookieParser()); // Saving token in cookies
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:3000",
+    credentials: true,
   })
 ); // Allowing access from client
 app.use("/api", router); // Switching routes by '/api'
