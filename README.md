@@ -12,10 +12,10 @@ npm run start
 
 ## Deploy Project on Vercel
 ```
-2.Create Web Server with free version
-3.Switch GitHub to that WebServer
-6.Deploy project and watch logs.
-7.Success Deploy
+1.Create Web Server with free version
+2.Switch GitHub to that WebServer
+3.Deploy project and watch logs.
+4.Success Deploy
 ```
 
 ## Dependencies
