@@ -62,15 +62,3 @@ jsonwebtoken - Generating tokens for auth
 multer - Uploading  images
 mysql2 - Connection between DB & project
 ```
-## Environment
-```
-PORT=8081
-SYNC_INTERVAL=10000
-CLIENT_URL=url
-DB_USER=root
-DB_PASSWORD=JavaScripth1_mysql
-DB_HOST=localhost
-DB_NAME=bug_bounty
-TOKEN_SECRET=905d36b9a0c71a806c4508bfe2a6a508fcd6ef2cac2fac951e64b08953203abd5a5487a2725542e247c734817994ae46efc047388b4da88f9751f78c2c199d2a
-EXPIRES_TIME='1h'
-```
