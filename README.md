@@ -1,5 +1,17 @@
 ## Client
 
+```
+@reduxjs/toolkit - Managing with redux toolkit,
+axios - Making requests with axios,
+react - Just react,
+react-dom - Using react dom,
+react-icons - Using icons,
+react-redux - Managing Provider,
+react-router-dom - Managing pages,
+react-toastify - Using notifications,
+sass - Styling with sass,
+```
+
 ## Server
 
 ## Project Setup
