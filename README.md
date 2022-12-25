@@ -15,4 +15,13 @@ npm run start
 ```
 
 ```
-
+## Dependencies
+```
+bcrypt - Hashing passwords
+cookie-parser - Using cookies,
+cors - Allowing access for client,
+express - Using express,
+jsonwebtoken - Generating tokens for auth
+multer - Uploading  images
+mysql2 - Connection between DB & project
+```
