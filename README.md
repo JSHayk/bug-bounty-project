@@ -1,4 +1,2 @@
-## Install
-```
-npm i
-```
+#Install project
+## npm i
